@@ -19,17 +19,43 @@
           rotateY(var(--rotateX)) rotate(var(--rotate));
         transition: transform 0.2s;
       }
+      #fly {
+        width: 100px;
+        height: 100px;
+        top: 100px;
+        left: 100px;
+        mix-blend-mode: multiply;
+      }
     </style>
 
     <img width="200" src="imgs/turtle.png" alt="Turt" class="turt" />
+    <!-- <img
+      id="fly"
+      src="https://media1.tenor.com/images/c9d7a4efabe86103b02082e6dd9a4033/tenor.gif?itemid=12181205"
+      alt="" -->
+    <!-- /> -->
 
     <script>
       const turtle = document.querySelector(".turt");
+      const fly = document.querySelector("#fly");
       let x = 0;
       let y = 0;
       let speed = 100;
       let flipped = false;
       let rotate = 0;
+
+      function isTouching(a, b) {
+        const aRect = a.getBoundingClientRect();
+        const bRect = b.getBoundingClientRect();
+
+        return !(
+          aRect.top + aRect.height < bRect.top ||
+          aRect.top > bRect.top + bRect.height ||
+          aRect.left + aRect.width < bRect.left ||
+          aRect.left > bRect.left + bRect.width
+        );
+      }
+
       function handleKeyDown(event) {
         if (!event.key.includes("Arrow")) {
           return;
@@ -66,9 +92,22 @@
           --rotate: ${rotate}deg;
          `
         );
-
+        // if (x < 0) {
+        //   x = 0;
+        // } else if (x > window.innerWidth) {
+        //   const currScreen = window.innerWidth;
+        // //   x = currScreen - 1;
+        // }
         console.log(x, y);
       }
+      // const moveFly = () => {
+      //   const x = Math.floor(Math.random() * window.innerWidth);
+      //   const y = Math.floor(Math.random() * window.innerHeight);
+      //   fly.style.top = `${y}px`;
+      //   fly.style.left = `${x}px`;
+      // };
+
+      // moveFly();
 
       window.addEventListener("keydown", handleKeyDown);
       console.log(turtle);
